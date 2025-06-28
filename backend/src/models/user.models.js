@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import { allRoles, availableRoles } from "../utils/constant.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,8 +32,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "owner"],
-      default: "user", // default role assigned if not specified
+      enum: allRoles,
+      default: availableRoles.USER,
     },
     isEmailVerified: {
       type: Boolean,
