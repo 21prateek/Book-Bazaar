@@ -14,7 +14,7 @@ import { authMiddleware } from "../middleware/auth.middleware.js";
 export const authRouter = express.Router();
 
 authRouter.post("/register", validate(registerSchema), register);
-authRouter.post("/verify/:token", userVerification);
+authRouter.get("/verify/:token", userVerification);
 authRouter.post("/login", validate(loginSchema), login);
 authRouter.post("/logout", authMiddleware, logout);
 authRouter.post("/api-key", authMiddleware, apiKey);

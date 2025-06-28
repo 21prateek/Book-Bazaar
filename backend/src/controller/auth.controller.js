@@ -33,11 +33,14 @@ const register = asyncHandler(async (req, res) => {
     });
   }
 
-  const { unhashedToken, hashedToken, tokenExpirey } =
+  const { hashedToken, tokenExpiry, unhashedToken } =
     user.generateTemporaryToken();
 
+  const ans = user.generateTemporaryToken();
+  console.log(hashedToken, tokenExpiry, unhashedToken);
+
   user.verificationToken = hashedToken;
-  user.verificationTokenExpiry = tokenExpirey;
+  user.verificationTokenExpiry = tokenExpiry;
 
   await user.save();
 
@@ -46,7 +49,7 @@ const register = asyncHandler(async (req, res) => {
     subject: "Verificating account",
     mailGenContent: emailContent(
       user.username,
-      `http://localhost:3000/api/v1/user/verify/${unhashedToken}`
+      `http://localhost:3000/api/v1/auth/verify/${unhashedToken}`
     ),
   });
 
@@ -107,7 +110,7 @@ const login = asyncHandler(async (req, res) => {
     });
   }
 
-  const checkPassword = await user.isPasswordCorrect(password);
+  const checkPassword = await bcrypt.compare(password, user.password);
 
   if (!checkPassword) {
     return res.status(400).json({
