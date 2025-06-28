@@ -110,7 +110,7 @@ const login = asyncHandler(async (req, res) => {
     });
   }
 
-  const checkPassword = await bcrypt.compare(password, user.password);
+  const checkPassword = user.isPasswordCorrect(password);
 
   if (!checkPassword) {
     return res.status(400).json({
