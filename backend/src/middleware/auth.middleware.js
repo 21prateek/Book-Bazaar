@@ -88,7 +88,9 @@ async function checkAdmin(req, res, next) {
       .json({ message: "Invalid access token", success: false });
   }
 
-  if (user.role === "admin") {
+  console.log(user.role);
+
+  if (user.role === "ADMIN") {
     return next();
   }
 
