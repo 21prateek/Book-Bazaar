@@ -10,4 +10,15 @@ const addBookSchema = z.object({
   stock: z.number(),
 });
 
-export { addBookSchema };
+const reviewSchema = z.object({
+  comments: z.string().max(100),
+  rating: z
+    .number({
+      required_error: "Rating is required",
+      invalid_type_error: "Rating must be a number",
+    })
+    .min(1, "Rating should be greater than 1")
+    .max(5, "Rating should be less than 5"),
+});
+
+export { addBookSchema, reviewSchema };

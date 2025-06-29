@@ -2,6 +2,7 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import { authRouter } from "./routes/auth.routes.js";
 import { bookRouter } from "./routes/book.routes.js";
+import { reviewRouter } from "./routes/review.routes.js";
 
 const app = express();
 
@@ -10,5 +11,6 @@ app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", bookRouter);
+app.use("/api/v1/review", reviewRouter);
 
 export default app;
